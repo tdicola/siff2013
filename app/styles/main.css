@@ -1,0 +1,23 @@
+#options label {
+	font-weight: bold;
+}
+
+#footer {
+	margin-bottom: 30px;
+}
+
+#selected-movies {
+	margin-top: 20px;
+}
+
+#selected-movies p {
+	font-weight: bold;
+}
+
+.indent {
+	margin-left: 20px;
+}
+
+.conflict-showtimes td {
+	border-top-width: 0px;
+}

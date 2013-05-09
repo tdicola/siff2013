@@ -1,0 +1,55 @@
+<p class="alert alert-info" ng-show="schedule.alerts.suggested">
+	<button type="button" class="close" ng-click="schedule.alerts.suggested = false">&times;</button>
+	<strong>Reminder:</strong> This schedule is just a suggestion.  Please visit <a href="http://www.siff.net/festival-2013">SIFF</a> to buy tickets and ensure the suggested showtimes are actually available.
+</p>
+<h4>Suggested Schedule:</h4>	
+<table class="table table-condensed">
+	<thead>
+		<tr>
+			<th>Date</th>
+			<th>Time</th>
+			<th>Movie</th>
+			<th>Theater</th>
+		</tr>
+	</thead>
+	<tbody>
+	    <tr ng-repeat="showtime in schedule.getShowtimes() | orderBy:'start'">
+	    	<td>{{showtime.startDate}}</td>
+	        <td>{{showtime.startTime}}</td>
+	        <td>{{showtime.movie}}</td>
+	        <td>{{showtime.theater}}</td>
+	    </tr>
+	</tbody>
+</table>
+<div ng-show="schedule.hasConflictMovies()">
+	<p class="alert alert-error" ng-show="schedule.alerts.conflicts">
+		<button type="button" class="close" ng-click="schedule.alerts.conflicts = false">&times;</button>
+		<strong>Attention:</strong> The following movies could not be scheduled because a 
+		free showtime that meets your generation criteria could not be found.  You might be able to manually resolve conflicts to find showtimes that are available.
+	</p>
+	<h4>Conflicting Movies:</h4>
+	<table class="table table-condensed">
+	<thead>
+		<tr>
+			<th>Movie</th>
+			<th>All Showtimes</th>
+		</tr>
+	</thead>
+	<tbody>
+	    <tr ng-repeat="conflict in schedule.getConflictMovies() | orderBy:'movie'">
+	    	<td>{{conflict.movie}}</td>
+	        <td>
+	        	<table class="conflict-showtimes">
+	        		<tr ng-repeat="showtime in conflict.showtimes | orderBy:'start'">
+	        			<td>{{showtime.startDate}}</td>
+	        			<td>{{showtime.startTime}}</td>
+	        			<td>{{showtime.theater}}</td>
+	        		</tr>
+	        	</table>
+	        </td>
+	    </tr>
+	</tbody>
+</table>
+</div>
+
+<a class="btn btn-primary" href="#/" style="margin-bottom: 100px">Back to Movies</a>

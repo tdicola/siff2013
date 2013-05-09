@@ -1,0 +1,31 @@
+<button class="btn btn-primary btn-block btn-large" 
+        ng-click="generateSchedule()"
+        ng-disabled="!movies.areSelected()">
+    Generate Schedule
+</button>
+<a href="#/options" class="btn btn-link btn-block">
+    Change Generation Options
+</a>
+<div id="selected-movies" class="well well-small">
+    <div ng-switch ng-switch on="movies.areSelected()">
+        <div ng-switch-when="false">
+            <p>Use this tool to automatically build a schedule of showtimes for films you 
+                want to see at the <a href="http://www.siff.net/festival-2013">2013 Seattle 
+                International Film Festival</a>.</p>
+            <p>Select films to the right, then click the Generate Schedule button above to see a 
+                suggested schedule.</p>
+            <p>How the schedule is generated can be adjusted by clicking the 
+                Change Generation Options button.</p>
+        </div>
+        <div ng-switch-when="true">
+            <h4>Selected Movies</h4>
+            <table class="table table-condensed">
+                <tr ng-repeat="movie in movies.getSelected() | orderBy:'title'">
+                    <td>{{movie.title}}</td>
+                       <td><button type="button" class="close pull-right" ng-click="movie.selected = false">&times;</button></td>
+                </tr>
+            </table>
+            <button class="btn btn-link btn-block" ng-click="movies.clear()">Remove All Selected</button>
+        </div>
+    </div>
+</div>

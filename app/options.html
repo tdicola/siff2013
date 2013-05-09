@@ -1,0 +1,58 @@
+<h3>Options</h3>
+<form id="options">
+    <fieldset>
+        <label class="checkbox inline">
+            <input type="checkbox" ng-model="options.preferTime.early" 
+                    ng-change="options.preferTime.late = false">
+            Prefer Earlier Shows
+        </label>
+        <label class="checkbox inline">
+            <input type="checkbox" ng-model="options.preferTime.late"
+                    ng-change="options.preferTime.early = false">
+            Prefer Later Shows
+        </label>
+
+        <label class="checkbox">
+            <input type="checkbox" ng-model="options.preferWeekends.active">
+            Prefer Weekend Shows
+        </label>
+
+        <label class="checkbox">
+            <input type="checkbox" ng-model="options.avoidWeekdays.active">
+            Avoid Weekday Shows Between:
+        </label>
+        <div class="control-group indent" 
+             ng-class="{'error': options.avoidWeekdays.after >= options.avoidWeekdays.before }">
+            <select class="span2" 
+                    ng-disabled="!options.avoidWeekdays.active"
+                    ng-model="options.avoidWeekdays.after"
+                    ng-options="hour.value as hour.display for hour in options.hours">
+            </select>
+            And
+            <select class="span2" 
+                    ng-disabled="!options.avoidWeekdays.active"
+                    ng-model="options.avoidWeekdays.before"
+                    ng-options="hour.value as hour.display for hour in options.hours">
+            </select>
+            <span class="label label-important" ng-show="options.avoidWeekdays.after >= options.avoidWeekdays.before">Start time must be before end time!</span>
+        </div>
+        <p class="indent">Note: Memorial day is considered a weekend during scheduling.</p>
+        <label>Adjacent Showing Buffer (minutes):
+            <input type="text" ng-model="options.transitBufferMinutes.value" class="span1">
+        </label>
+        <p class="indent">Adjacent showing buffer is the amount of time to require between
+            back to back shows that are in different theaters.  Remember to allot enough time for transit,
+            parking, and waiting in line.
+        </p>
+        <h4>Allowed Theaters:</h4>
+        <ul class="unstyled">
+            <li ng-repeat="(id, theater) in theaters">
+                <label class="checkbox">
+                    <input type="checkbox" ng-model="theater.active">
+                    {{theater.name}}
+                </label>
+            </li>
+        </ul>
+        <a href="#/" class="btn btn-primary">Back To Movies</a>
+    </fieldset>
+</form>
